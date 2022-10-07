@@ -28,7 +28,7 @@ public class Article {
   @Column(name = "author", length = 250)
   private String author;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy="article", cascade = CascadeType.ALL)
+  @OneToMany(fetch = FetchType.EAGER, mappedBy="article", cascade = CascadeType.ALL)
   private List<Comment> comment = new ArrayList<>();
   @Column(name = "create_timestamp")
   @Temporal(TemporalType.TIMESTAMP)
