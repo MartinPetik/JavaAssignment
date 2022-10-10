@@ -14,6 +14,7 @@ import sk.ness.academy.domain.Article;
 import sk.ness.academy.domain.Comment;
 import sk.ness.academy.dto.Author;
 import sk.ness.academy.dto.AuthorStats;
+import sk.ness.academy.exception.ApiRequestException;
 import sk.ness.academy.service.ArticleService;
 import sk.ness.academy.service.AuthorService;
 import sk.ness.academy.service.CommentService;
@@ -38,12 +39,21 @@ public class BlogController {
 
   @RequestMapping(value = "articles/{articleId}", method = RequestMethod.GET)
   public Article getArticle(@PathVariable final Integer articleId) {
-	  return this.articleService.findByID(articleId);
+	  Article A = this.articleService.findByID(articleId);
+      if (A == null) {
+        throw new ApiRequestException("Article with ID: " + articleId + " does not exist");
+      }
+      return this.articleService.findByID(articleId);
   }
 
   @RequestMapping(value = "articles/{articleId}", method = RequestMethod.DELETE)
   public void deleteArticle(@PathVariable final Integer articleId) {
+    Article A = this.articleService.findByID(articleId);
+    if (A == null) {
+      throw new ApiRequestException("Article with ID: " + articleId + " does not exist");
+    }
           this.articleService.deleteArticle(articleId);
+
   }
 
   @RequestMapping(value = "articles/search/{searchText}", method = RequestMethod.GET)
@@ -66,19 +76,22 @@ public class BlogController {
   @RequestMapping(value = "authors/stats", method = RequestMethod.GET)
   public List<AuthorStats> authorStats() {
     return this.authorService.stats();
-
-	 // throw new UnsupportedOperationException("Author statistics not implemented.");
   }
 
-  // ~~ Comment
-//  @RequestMapping(value = "comment", method = RequestMethod.PUT)
-//  public void addComment(@RequestBody final Comment comment) {
-//    this.commentService.createComment(comment);
-//  }
-
+   // Comment
   @RequestMapping(value = "articles/{articleId}/comment", method = RequestMethod.PUT)
   public void addComment(@PathVariable final Integer articleId, Comment comment) {
-    this.commentService.createComment(comment,articleId);
+   // this.commentService.createComment(comment,articleId);
+    throw new UnsupportedOperationException("Comments are not implemented.");
+  }
 
+  @RequestMapping(value = "comment/{commentId}", method = RequestMethod.DELETE)
+  public void deleteComment(@PathVariable final Integer commentId) {
+//    Article A = this.commentService.findByID(commentId);
+//    if (A == null) {
+//      throw new ApiRequestException("Article with ID: " + commentId + " does not exist");
+//    }
+//    this.commentService.deleteComment(commentId);
+    throw new UnsupportedOperationException("Comments are not implemented.");
   }
 }
