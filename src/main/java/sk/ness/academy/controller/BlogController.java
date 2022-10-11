@@ -80,18 +80,26 @@ public class BlogController {
 
    // Comment
   @RequestMapping(value = "articles/{articleId}/comment", method = RequestMethod.PUT)
-  public void addComment(@PathVariable final Integer articleId, Comment comment) {
-   // this.commentService.createComment(comment,articleId);
-    throw new UnsupportedOperationException("Comments are not implemented.");
+  public void addComment(@PathVariable final Integer articleId,@RequestBody final Comment comment) {
+    Article A = this.articleService.findByID(articleId);
+    if (A == null) {
+      throw new ApiRequestException("Comment with ID: " + articleId + " does not exist");
+    }
+   this.commentService.createComment(comment,articleId);
+    //throw new UnsupportedOperationException("Comments are not implemented.");
   }
 
   @RequestMapping(value = "comment/{commentId}", method = RequestMethod.DELETE)
   public void deleteComment(@PathVariable final Integer commentId) {
-//    Article A = this.commentService.findByID(commentId);
-//    if (A == null) {
-//      throw new ApiRequestException("Article with ID: " + commentId + " does not exist");
-//    }
-//    this.commentService.deleteComment(commentId);
-    throw new UnsupportedOperationException("Comments are not implemented.");
+    Comment A = this.commentService.findByID(commentId);
+    if (A == null) {
+      throw new ApiRequestException("Comment with ID: " + commentId + " does not exist");
+    }
+    this.commentService.deleteComment(commentId);
+   // throw new UnsupportedOperationException("Comments are not implemented.");
+  }
+  @RequestMapping(value = "comment", method = RequestMethod.GET)
+  public List<Comment> getAllComment() {
+    return this.commentService.findAll();
   }
 }

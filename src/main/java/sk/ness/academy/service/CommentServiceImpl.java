@@ -8,6 +8,7 @@ import sk.ness.academy.domain.Comment;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -32,7 +33,8 @@ public class CommentServiceImpl implements CommentService {
   public void createComment(Comment comment, Integer articleId) {
     Article article = this.articleDao.findByID(articleId);
     comment.setArticle(article);
-   this.commentDAO.persist(comment);
+    article.setComment(Collections.singletonList(comment));
+    this.commentDAO.persist(comment);
   }
 
   @Override

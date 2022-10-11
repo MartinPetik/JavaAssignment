@@ -17,9 +17,9 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comments_seq_store")
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="article_id", nullable=false)
-    private Article article;
+    private Article article = new Article();
 
     @Column(name = "text", length = 2000)
     private String text;
