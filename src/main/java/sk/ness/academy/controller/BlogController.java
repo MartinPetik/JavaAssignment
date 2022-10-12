@@ -42,8 +42,7 @@ public class BlogController {
 	  Article A = this.articleService.findByID(articleId);
       if (A == null) {
         throw new ApiRequestException("Article with ID: " + articleId + " does not exist");
-      }
-      return this.articleService.findByID(articleId);
+      } else return this.articleService.findByID(articleId);
   }
 
   @RequestMapping(value = "articles/{articleId}", method = RequestMethod.DELETE)
@@ -51,9 +50,7 @@ public class BlogController {
     Article A = this.articleService.findByID(articleId);
     if (A == null) {
       throw new ApiRequestException("Article with ID: " + articleId + " does not exist");
-    }
-          this.articleService.deleteArticle(articleId);
-
+    } else this.articleService.deleteArticle(articleId);
   }
 
   @RequestMapping(value = "articles/search/{searchText}", method = RequestMethod.GET)
@@ -84,8 +81,7 @@ public class BlogController {
     Article A = this.articleService.findByID(articleId);
     if (A == null) {
       throw new ApiRequestException("Comment with ID: " + articleId + " does not exist");
-    }
-   this.commentService.createComment(comment,articleId);
+    } else this.commentService.createComment(comment,articleId);
     //throw new UnsupportedOperationException("Comments are not implemented.");
   }
 
@@ -94,8 +90,7 @@ public class BlogController {
     Comment A = this.commentService.findByID(commentId);
     if (A == null) {
       throw new ApiRequestException("Comment with ID: " + commentId + " does not exist");
-    }
-    this.commentService.deleteComment(commentId);
+    } else this.commentService.deleteComment(commentId);
    // throw new UnsupportedOperationException("Comments are not implemented.");
   }
   @RequestMapping(value = "comment", method = RequestMethod.GET)

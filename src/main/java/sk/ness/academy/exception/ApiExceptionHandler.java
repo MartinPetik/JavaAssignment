@@ -12,9 +12,9 @@ public class ApiExceptionHandler {
     public ResponseEntity<Object> handleApiRequestException(ApiRequestException e){
         ApiException apiException = new ApiException(
                 e.getMessage(),
-                HttpStatus.BAD_REQUEST,
+                HttpStatus.NOT_FOUND,
                 ZonedDateTime.now()
         );
-        return new ResponseEntity<>(apiException,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(apiException,HttpStatus.NOT_FOUND);
     }
 }
